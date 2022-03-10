@@ -1,11 +1,14 @@
 import { Box, Button, Container, Divider, Heading, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { getTokenFromLocalStorage, userIsAuthenticated } from "../helper/helper"
+import { Link, useParams } from "react-router-dom"
+import { getTokenFromLocalStorage } from "../helper/helper"
 
 const Profile = () => {
 
+  const params = useParams()
+  console.log(params)
+  
   const [profileData, setProfileData] = useState([])
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const Profile = () => {
     getProfileData()
   }, [])
 
-  console.log(profileData.follows)
+  // console.log(profileData.follows)
 
   return (
     <Container display={'flex'} flexDir={'column'}>
@@ -35,19 +38,15 @@ const Profile = () => {
           <HStack>
             <Heading>{profileData.username}</Heading>
             <Button border={'5px'} bg={'crimson'}>
-              <Link to={'/edit'}>
+              <Link to={'/profile/edit'}>
                 Edit Profile
               </Link>
             </Button>
           </HStack>
           <HStack>
-            {userIsAuthenticated() && (
-              <>
-                <Text>{profileData.posts_created.length} posts</Text>
-                <Text>{profileData.followed_by.length} followers</Text>
-                <Text>{profileData.follows.length} following</Text>
-              </>
-            )}
+            {/* <Text>{profileData.posts_created.length} posts</Text>
+            <Text>{profileData.followed_by.length} followers</Text>
+            <Text>{profileData.follows.length} following</Text> */}
           </HStack>
           <VStack alignItems={'flex-start'}>
             <Text>{profileData.first_name}</Text>
